@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - School</title>
+    <style>
+        /* Basic reset for margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+
+        }
+
+        /* Body and HTML styles */
+        body, html {
+            font-family: 'Arial', sans-serif;
+            background-color: #606bce;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar container */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;  /* White navbar background */
+            padding: 10px 5%;  /* Padding in percentage to make it responsive */
+            border-bottom: 2px solid #ccc;  /* Light grey border to differentiate the navbar */
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            transition: top 0.3s ease; /* Smooth hiding animation */
+        }
+
+        /* Logo */
+        .logo img {
+            width: 120px; /* Logo size */
+            height: auto;
+        }
+
+        /* Search input field */
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 250px;
+            transition: width 0.4s ease;
+        }
+
+        .search-input:focus {
+            width: 300px; /* Expand on focus */
+            outline: none;
+            border-color: #007bff;
+        }
+
+        /* Navbar links container */
+        ul {
+            display: flex;
+            list-style: none;
+            margin-left: auto; /* Move the navbar links to the right */
+        }
+
+        ul li {
+            margin: 0 15px; /* Space out links */
+        }
+
+        ul li a {
+            color: #333; /* Dark text */
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s, transform 0.1s ease;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        /* Hover effect for links */
+        ul li a:hover {
+            color: #555; /* Darker grey text */
+            background-color: rgba(0, 0, 0, 0.1); /* Light background on hover */
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        /* Active click effect for links */
+        ul li a:active {
+            color: #333;
+            transform: translateY(2px);  /* Stronger "press" effect */
+        }
+
+        /* Pin Button styled like a pin */
+        .pin-button {
+            color: #fff;
+            background-color: #ff6347; /* Tomato color */
+            border: none;
+            padding: 10px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .pin-button:hover {
+            background-color: #ff4500;
+        }
+
+        .pin-button:active {
+            background-color: #e53e2f;
+            
+        }
+
+        /* Listings Container Styles */
+        .listing-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+            background-color: #f9f9f9;
+        }
+
+        /* Individual Listing Card Styles */
+        .listing-card {
+            flex: 1 1 calc(33% - 40px); /* Ensure three items per row with margin spacing */
+            box-sizing: border-box;
+            max-width: 300px;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px); /* Hover effect to make card lift */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Listing Image Styles */
+        .listing-image {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Listing Title */
+        .listing-title {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Listing Info */
+        .listing-info {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #777;
+            transition: color 0.3s;
+        }
+
+        .listing-info:hover {
+            color: #555; /* Faded black on hover */
+        }
+
+        .listing-info:active {
+            color: #333; /* Dark color when clicked */
+            transform: translateY(2px); /* Punch effect when clicked */
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s ease;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #0056b3;
+        }
+
+        .add-to-cart-button:active {
+            background-color: #004494;
+            transform: translateY(2px);
+        }
+
+        /* Star Rating */
+        .star-rating {
+            margin-top: 10px;
+        }
+
+        .star-rating span {
+            color: #f39c12;
+            font-size: 20px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .listing-card {
+                flex: 1 1 100%; /* Stack items vertically on smaller screens */
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 10px 2%;
+                align-items: center;
+            }
+
+            .logo img {
+                width: 120px; /* Adjust logo size for smaller screens */
+            }
+
+            ul {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            ul li {
+                margin: 10px 0; /* Vertical spacing */
+            }
+
+            ul li a {
+                font-size: 18px;
+            }
+
+            .search-input {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<bodyz>
+
+<!-- Navbar -->
+<nav>
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <img src="https://via.placeholder.com/120x40" alt="School Marketplace Logo"> <!-- Replace with your logo URL -->
+    </a>
+
+    <!-- Search Input -->
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search...">
+    </div>
+
+    <!-- Navbar Links -->
+    <ul>
+        <li><a href="#service">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- Pin Button -->
+    <button class="pin-button" id="pinBtn">&#128204;</button> <!-- Pin icon -->
+</nav>
+
+<!-- Listings Section -->
+<section class="listing-container">
+    <!-- 12 Listings -->
+    <!-- Listing 1 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Limitless</h3>
+        <p class="listing-info"><strong>Author:</strong> Pradip</p>
+        <p class="listing-info"><strong>Price:</strong> $50</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 2 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">The Great Adventure</h3>
+        <p class="listing-info"><strong>Author:</strong> John Doe</p>
+        <p class="listing-info"><strong>Price:</strong> $30</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Add the other 9 listings similarly --><!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <!-- Listing 3 -->
+    <div class="listing-card">
+        <img src="https://via.placeholder.com/150" alt="Book Image" class="listing-image">
+        <h3 class="listing-title">Learning JavaScript</h3>
+        <p class="listing-info"><strong>Author:</strong> Jane Smith</p>
+        <p class="listing-info"><strong>Price:</strong> $45</p>
+        <div class="star-rating">
+            <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+        
+        <button class="add-to-cart-button">Add to Cart</button>
+    </div>
+
+    <script>
+    // Pin/Unpin Navbar functionality
+    let isPinned = false;
+    const pinBtn = document.getElementById('pinBtn');
+    pinBtn.addEventListener('click', function() {
+        if (isPinned) {
+            document.querySelector('nav').style.top = "0";
+            pinBtn.innerText = "Pin Navbar";
+        } else {
+            document.querySelector('nav').style.top = "-60px";
+            pinBtn.innerText = "Unpin Navbar";
+        }
+        isPinned = !isPinned;
+    });
+
+    // Hide navbar on scroll down
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function() {
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll > lastScrollTop) {
+            document.querySelector('nav').style.top = "-60px";
+        } else {
+            document.querySelector('nav').style.top = "0";
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+    
+    // Pin/Unpin Navbar functionality
+    let isPinned = false;
+    const pinBtn = document.getElementById('pinBtn');
+    const navbar = document.querySelector('nav');
+
+    pinBtn.addEventListener('click', function() {
+        isPinned = !isPinned;
+
+        if (isPinned) {
+            navbar.style.position = "fixed";
+            navbar.style.top = "0";
+            pinBtn.innerText = "Unpin Navbar";
+        } else {
+            navbar.style.position = "sticky";
+            pinBtn.innerText = "Pin Navbar";
+        }
+    });
+
+    // Hide navbar on scroll down, unless pinned
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function() {
+        if (!isPinned) {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > lastScrollTop) {
+                navbar.style.top = "-60px";
+            } else {
+                navbar.style.top = "0";
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        }
+    });
+
+
+    
+</script>
+
+</body>
+</html>
