@@ -390,64 +390,6 @@
 
     <script>
     // Pin/Unpin Navbar functionality
-    let isPinned = false;
-    const pinBtn = document.getElementById('pinBtn');
-    pinBtn.addEventListener('click', function() {
-        if (isPinned) {
-            document.querySelector('nav').style.top = "0";
-            pinBtn.innerText = "Pin Navbar";
-        } else {
-            document.querySelector('nav').style.top = "-60px";
-            pinBtn.innerText = "Unpin Navbar";
-        }
-        isPinned = !isPinned;
-    });
-
-    // Hide navbar on scroll down
-    let lastScrollTop = 0;
-    window.addEventListener("scroll", function() {
-        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (currentScroll > lastScrollTop) {
-            document.querySelector('nav').style.top = "-60px";
-        } else {
-            document.querySelector('nav').style.top = "0";
-        }
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
-    
-    // Pin/Unpin Navbar functionality
-    let isPinned = false;
-    const pinBtn = document.getElementById('pinBtn');
-    const navbar = document.querySelector('nav');
-
-    pinBtn.addEventListener('click', function() {
-        isPinned = !isPinned;
-
-        if (isPinned) {
-            navbar.style.position = "fixed";
-            navbar.style.top = "0";
-            pinBtn.innerText = "Unpin Navbar";
-        } else {
-            navbar.style.position = "sticky";
-            pinBtn.innerText = "Pin Navbar";
-        }
-    });
-
-    // Hide navbar on scroll down, unless pinned
-    let lastScrollTop = 0;
-    window.addEventListener("scroll", function() {
-        if (!isPinned) {
-            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > lastScrollTop) {
-                navbar.style.top = "-60px";
-            } else {
-                navbar.style.top = "0";
-            }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        }
-    });
-
-
     
 </script>
 
